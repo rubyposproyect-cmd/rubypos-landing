@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>RubyPOS — Portada</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #0A2E22;
+    --verde-claro: #173B2C;
+    --verde-mas-claro: #1F4A38;
+    --dorado: #C9962F;
+    --dorado-claro: #E8C375;
+    --crema: #F4F1EA;
+    --blanco: #FFFFFF;
+    --texto-claro: rgba(255,255,255,.72);
+    --texto-mute: rgba(255,255,255,.5);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: var(--verde); }
+
+  .hero { min-height: 760px; background: var(--verde); position: relative; overflow: hidden; padding: 0 72px; }
+  .hero::before {
+    content: ""; position: absolute; top: -280px; right: -220px; width: 700px; height: 700px;
+    border-radius: 50%; border: 1px solid rgba(232,195,117,.14); pointer-events: none;
+  }
+  .hero::after {
+    content: ""; position: absolute; top: -180px; right: -120px; width: 500px; height: 500px;
+    border-radius: 50%; border: 1px solid rgba(232,195,117,.1); pointer-events: none;
+  }
+
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 36px 0; position: relative; z-index: 2; }
+  .marca { display: flex; align-items: center; gap: 10px; }
+  .anillo { width: 26px; height: 26px; border-radius: 50%; border: 4px solid var(--dorado); }
+  .marca-texto { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 21px; color: var(--blanco); letter-spacing: -.2px; }
+  .nav-links { display: flex; align-items: center; gap: 40px; }
+  .nav-links a { color: var(--texto-claro); text-decoration: none; font-size: 15px; font-weight: 500; }
+  .nav-cta {
+    background: var(--dorado); color: var(--verde); font-weight: 700; font-size: 14px;
+    padding: 12px 24px; border-radius: 9px; text-decoration: none; letter-spacing: -.1px;
+  }
+
+  .hero-cuerpo { display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; padding: 56px 0 90px; position: relative; z-index: 2; }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px; background: rgba(232,195,117,.1);
+    border: 1px solid rgba(232,195,117,.25); color: var(--dorado-claro); font-size: 13px; font-weight: 600;
+    padding: 8px 16px 8px 12px; border-radius: 20px; margin-bottom: 28px;
+  }
+  .eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: #4C9F70; }
+
+  h1 {
+    font-family: 'Sora', sans-serif; font-weight: 800; font-size: 58px; line-height: 1.06;
+    color: var(--blanco); letter-spacing: -1.5px; margin-bottom: 26px;
+  }
+  h1 em { font-style: normal; color: var(--dorado-claro); }
+
+  .hero-sub { font-size: 18px; line-height: 1.6; color: var(--texto-claro); max-width: 480px; margin-bottom: 40px; }
+
+  .hero-ctas { display: flex; align-items: center; gap: 18px; margin-bottom: 52px; }
+  .btn-primario {
+    background: var(--dorado); color: var(--verde); font-weight: 700; font-size: 16px;
+    padding: 17px 30px; border-radius: 11px; text-decoration: none; letter-spacing: -.2px;
+  }
+  .btn-secundario {
+    color: var(--blanco); font-weight: 600; font-size: 16px; text-decoration: none;
+    display: flex; align-items: center; gap: 8px; padding: 17px 6px;
+  }
+
+  .prueba-social { display: flex; align-items: center; gap: 18px; }
+  .avatares { display: flex; }
+  .avatar {
+    width: 38px; height: 38px; border-radius: 50%; border: 2.5px solid var(--verde);
+    background: var(--dorado-claro); margin-left: -10px; display: flex; align-items: center; justify-content: center;
+    font-family: 'Sora', sans-serif; font-weight: 700; font-size: 13px; color: var(--verde);
+  }
+  .avatar:first-child { margin-left: 0; }
+  .prueba-texto { font-size: 14px; color: var(--texto-mute); line-height: 1.4; }
+  .prueba-texto strong { color: var(--texto-claro); font-weight: 600; }
+
+  /* ---- Maqueta del producto ---- */
+  .maqueta-wrap { position: relative; display: flex; justify-content: center; }
+  .tablet {
+    width: 480px; background: #fff; border-radius: 22px; overflow: hidden;
+    box-shadow: 0 40px 90px rgba(0,0,0,.45), 0 0 0 1px rgba(232,195,117,.12);
+    transform: rotate(1.2deg);
+  }
+  .tablet-header {
+    height: 52px; background: #fff; border-bottom: 1px solid #EEE8DB; display: flex;
+    align-items: center; padding: 0 18px; gap: 12px;
+  }
+  .tablet-header .anillo-chica { width: 15px; height: 15px; border-radius: 50%; border: 3px solid var(--dorado); }
+  .tablet-header .marca-chica { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 13px; color: var(--verde); }
+  .tablet-header .venta-pill {
+    margin-left: auto; background: var(--verde); color: #fff; font-size: 10px; font-weight: 700;
+    padding: 6px 12px; border-radius: 6px; letter-spacing: .3px;
+  }
+  .tablet-body { display: flex; background: var(--crema); min-height: 340px; }
+  .tablet-grid { flex: 1; padding: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-content: start; }
+  .prod-card { background: #fff; border-radius: 10px; overflow: hidden; border: 1px solid #E9E3D6; }
+  .prod-accento { display: block; height: 3px; }
+  .prod-card .cuerpo { padding: 10px; }
+  .prod-nombre { font-size: 12px; font-weight: 700; color: #1C2620; }
+  .prod-precio { font-size: 12px; font-weight: 800; color: #B9822A; margin-top: 6px; display: block; }
+  .tablet-cart { width: 158px; background: #fff; border-left: 1px solid #EEE8DB; padding: 14px 12px; }
+  .cart-titulo { font-size: 11px; font-weight: 700; color: #1C2620; margin-bottom: 10px; }
+  .cart-linea { display: flex; justify-content: space-between; font-size: 11px; color: #4C5C53; padding: 7px 0; border-bottom: 1px solid #F0ECE2; opacity: 0; animation: entrar .5s ease forwards; }
+  .cart-linea:nth-child(2) { animation-delay: .3s; }
+  .cart-linea:nth-child(3) { animation-delay: 1.4s; }
+  .cart-linea:nth-child(4) { animation-delay: 2.5s; }
+  @keyframes entrar { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+  .cart-total { display: flex; justify-content: space-between; font-size: 13px; font-weight: 800; color: var(--verde); margin-top: 12px; padding-top: 10px; border-top: 1px solid #EEE8DB; }
+
+  .flotante-qr {
+    position: absolute; top: 26px; left: -18px; background: #fff; border-radius: 14px; padding: 12px 16px;
+    box-shadow: 0 16px 40px rgba(0,0,0,.28); display: flex; align-items: center; gap: 10px;
+    animation: flotar 3.5s ease-in-out infinite; z-index: 5; white-space: nowrap;
+  }
+  @keyframes flotar { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  .flotante-qr .icono { width: 34px; height: 34px; border-radius: 9px; background: var(--verde); display: flex; align-items: center; justify-content: center; color: var(--dorado-claro); font-size: 16px; flex-shrink: 0; }
+  .flotante-qr .texto b { display: block; font-size: 12px; color: #1C2620; font-weight: 700; }
+  .flotante-qr .texto span { font-size: 11px; color: #8A9A90; }
+
+  .flotante-cocina {
+    position: absolute; bottom: 46px; right: -14px; background: #fff; border-radius: 14px; padding: 12px 16px;
+    box-shadow: 0 16px 40px rgba(0,0,0,.28); display: flex; align-items: center; gap: 10px;
+    animation: flotar 3.5s ease-in-out infinite 1.2s; z-index: 5; white-space: nowrap;
+  }
+  .flotante-cocina .check { width: 22px; height: 22px; border-radius: 6px; background: #4C9F70; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; }
+  .flotante-cocina .texto b { display: block; font-size: 12px; color: #1C2620; font-weight: 700; text-decoration: line-through; opacity: .5; }
+
+  /* ---- Sección: objetivo → cómo te ayuda ---- */
+  .objetivos { background: var(--crema); padding: 100px 72px; }
+  .objetivos-head { text-align: center; max-width: 620px; margin: 0 auto 64px; }
+  .objetivos-eyebrow { font-size: 13px; font-weight: 700; color: var(--dorado); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 14px; }
+  .objetivos-titulo { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 38px; color: var(--verde); letter-spacing: -1px; line-height: 1.15; }
+
+  .objetivos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; max-width: 1240px; margin: 0 auto; }
+  .objetivo-card { background: #fff; border-radius: 20px; padding: 36px 32px; border: 1px solid #E9E3D6; }
+  .objetivo-num {
+    width: 40px; height: 40px; border-radius: 11px; background: var(--verde); color: var(--dorado-claro);
+    display: flex; align-items: center; justify-content: center; font-family: 'Sora', sans-serif;
+    font-weight: 800; font-size: 16px; margin-bottom: 22px;
+  }
+  .objetivo-titulo { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 21px; color: var(--verde); margin-bottom: 20px; letter-spacing: -.3px; }
+  .objetivo-sub { font-size: 15px; line-height: 1.55; color: #5C6D63; margin-bottom: 24px; }
+  .objetivo-lista { list-style: none; }
+  .objetivo-lista li {
+    display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #3C4A42;
+    padding: 10px 0; border-top: 1px solid #F0ECE2; font-weight: 500;
+  }
+  .objetivo-lista li:first-child { border-top: none; }
+  .objetivo-lista li::before { content: "✓"; color: var(--dorado); font-weight: 800; flex-shrink: 0; }
+
+  /* ---- Sección: tres diferenciadores, bloques alternados ---- */
+  .diferenciadores { background: #fff; padding: 110px 72px; }
+  .dif-head { text-align: center; max-width: 740px; margin: 0 auto 90px; }
+  .dif-eyebrow { font-size: 13px; font-weight: 700; color: var(--dorado); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 14px; }
+  .dif-titulo { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 38px; color: var(--verde); letter-spacing: -1px; }
+
+  .dif-fila { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1240px; margin: 0 auto 120px; }
+  .dif-fila:last-child { margin-bottom: 0; }
+  .dif-fila.invertida { direction: rtl; }
+  .dif-fila.invertida > * { direction: ltr; }
+
+  .dif-badge {
+    display: inline-block; background: rgba(10,46,34,.06); color: var(--verde); font-size: 12.5px; font-weight: 700;
+    padding: 7px 14px; border-radius: 20px; margin-bottom: 20px; letter-spacing: .1px;
+  }
+  .dif-fila-titulo { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 30px; color: #1C2620; letter-spacing: -.6px; margin-bottom: 28px; line-height: 1.15; }
+  .dif-fila-texto { font-size: 16px; line-height: 1.65; color: #5C6D63; margin-bottom: 26px; max-width: 420px; }
+  .dif-puntos { list-style: none; }
+  .dif-puntos li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: #3C4A42; font-weight: 500; padding: 9px 0; }
+  .dif-puntos li::before { content: "✓"; color: #4C9F70; font-weight: 800; flex-shrink: 0; margin-top: 1px; }
+
+  .dif-visual { display: flex; justify-content: center; }
+  .dif-visual-marco {
+    background: var(--crema); border-radius: 20px; padding: 32px; width: 100%; max-width: 460px;
+    box-shadow: 0 30px 70px rgba(10,46,34,.1);
+  }
+
+  /* ---- Testimonio ---- */
+  .testimonio { background: var(--crema); padding: 110px 72px; }
+  .testimonio-caja { max-width: 780px; margin: 0 auto; text-align: center; }
+  .testimonio-comillas { font-family: 'Sora', sans-serif; font-size: 64px; font-weight: 800; color: var(--dorado); line-height: 1; margin-bottom: 8px; }
+  .testimonio-cita { font-family: 'Sora', sans-serif; font-size: 27px; font-weight: 600; color: var(--verde); line-height: 1.45; letter-spacing: -.4px; margin-bottom: 32px; }
+  .testimonio-autor { display: flex; align-items: center; justify-content: center; gap: 14px; }
+  .testimonio-avatar {
+    width: 50px; height: 50px; border-radius: 50%; background: var(--verde); color: var(--dorado-claro);
+    display: flex; align-items: center; justify-content: center; font-family: 'Sora', sans-serif; font-weight: 800; font-size: 17px;
+  }
+  .testimonio-nombre { text-align: left; }
+  .testimonio-nombre b { display: block; font-size: 15px; color: #1C2620; font-weight: 700; }
+  .testimonio-nombre span { font-size: 13.5px; color: #8A867A; }
+
+  /* ---- Cómo empezar ---- */
+  .empezar { background: #fff; padding: 110px 72px; }
+  .empezar-head { text-align: center; max-width: 620px; margin: 0 auto 70px; }
+  .empezar-eyebrow { font-size: 13px; font-weight: 700; color: var(--dorado); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 14px; }
+  .empezar-titulo { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 38px; color: var(--verde); letter-spacing: -1px; }
+  .empezar-pasos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; max-width: 1100px; margin: 0 auto; position: relative; }
+  .empezar-linea { position: absolute; top: 27px; left: 15%; right: 15%; height: 2px; background: repeating-linear-gradient(90deg, #DDD9CF 0 8px, transparent 8px 16px); z-index: 0; }
+  .empezar-paso { text-align: center; position: relative; z-index: 1; padding: 0 20px; }
+  .empezar-num {
+    width: 56px; height: 56px; border-radius: 50%; background: var(--verde); color: var(--dorado-claro);
+    display: flex; align-items: center; justify-content: center; font-family: 'Sora', sans-serif; font-weight: 800;
+    font-size: 21px; margin: 0 auto 22px; box-shadow: 0 0 0 6px #fff;
+  }
+  .empezar-paso-titulo { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 18px; color: #1C2620; margin-bottom: 10px; }
+  .empezar-paso-texto { font-size: 14.5px; color: #6E6A5E; line-height: 1.55; max-width: 260px; margin: 0 auto; }
+
+  /* ---- Cierre ---- */
+  .cierre { background: var(--verde); padding: 110px 72px; text-align: center; position: relative; overflow: hidden; }
+  .cierre::before {
+    content: ""; position: absolute; bottom: -260px; left: 50%; transform: translateX(-50%); width: 640px; height: 640px;
+    border-radius: 50%; border: 1px solid rgba(232,195,117,.12); pointer-events: none;
+  }
+  .cierre-titulo { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 42px; color: #fff; letter-spacing: -1px; max-width: 620px; margin: 0 auto 20px; position: relative; z-index: 1; }
+  .cierre-sub { font-size: 17px; color: var(--texto-claro); max-width: 520px; margin: 0 auto 40px; line-height: 1.6; position: relative; z-index: 1; }
+  .cierre-ctas { display: flex; align-items: center; justify-content: center; gap: 18px; position: relative; z-index: 1; margin-bottom: 56px; }
+
+  .footer { border-top: 1px solid rgba(232,195,117,.14); padding-top: 40px; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; }
+  .footer-marca { display: flex; align-items: center; gap: 9px; }
+  .footer-marca .anillo { width: 20px; height: 20px; }
+  .footer-marca span { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 16px; color: #fff; }
+  .footer-links { display: flex; gap: 32px; }
+  .footer-links a { color: var(--texto-mute); text-decoration: none; font-size: 13.5px; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <nav>
+    <div class="marca">
+      <span class="anillo"></span>
+      <span class="marca-texto">RubyPOS</span>
+    </div>
+    <div class="nav-links">
+      <a href="#">Funciones</a>
+      <a href="#">Cómo funciona</a>
+      <a href="#">Precios</a>
+    </div>
+    <a href="#" class="nav-cta">Empezar ahora</a>
+  </nav>
+
+  <div class="hero-cuerpo">
+    <div>
+      <div class="eyebrow"><span class="eyebrow-dot"></span> Hecho para negocios de comida y bebida</div>
+  <h1>Más tiempo para atender. <em>Menos tiempo</em> cuadrando cuentas.</h1>
+      <p class="hero-sub">Un solo sistema para vender, cobrar y ver cómo te fue — para que tu tiempo se vaya en atender bien, no en llevar cuentas a mano.</p>
+      <div class="hero-ctas">
+        <a href="#" class="btn-primario">Probar gratis</a>
+        <a href="#" class="btn-secundario">Ver cómo funciona →</a>
+      </div>
+      <div class="prueba-social">
+        <div class="avatares">
+          <div class="avatar">LH</div>
+          <div class="avatar">LB</div>
+        </div>
+        <div class="prueba-texto"><strong>La Herencia</strong> y otros negocios ya venden con RubyPOS todos los días.</div>
+      </div>
+    </div>
+
+    <div class="maqueta-wrap">
+      <div class="flotante-qr">
+        <span class="icono">▦</span>
+        <div class="texto"><b>Pedido por QR</b><span>Mesa 5 · recién llegó</span></div>
+      </div>
+
+      <div class="tablet">
+        <div class="tablet-header">
+          <span class="anillo-chica"></span>
+          <span class="marca-chica">RubyPOS</span>
+          <span class="venta-pill">VENTA</span>
+        </div>
+        <div class="tablet-body">
+          <div class="tablet-grid">
+            <div class="prod-card"><span class="prod-accento" style="background:#378ADD"></span><div class="cuerpo"><div class="prod-nombre">Café con leche</div><span class="prod-precio">$4.500</span></div></div>
+            <div class="prod-card"><span class="prod-accento" style="background:#639922"></span><div class="cuerpo"><div class="prod-nombre">Sandwich</div><span class="prod-precio">$8.000</span></div></div>
+            <div class="prod-card"><span class="prod-accento" style="background:#F2A900"></span><div class="cuerpo"><div class="prod-nombre">Croissant</div><span class="prod-precio">$3.800</span></div></div>
+            <div class="prod-card"><span class="prod-accento" style="background:#D85A30"></span><div class="cuerpo"><div class="prod-nombre">Jugo natural</div><span class="prod-precio">$5.500</span></div></div>
+          </div>
+          <div class="tablet-cart">
+            <div class="cart-titulo">Pedido actual</div>
+            <div class="cart-linea"><span>1x Café con leche</span></div>
+            <div class="cart-linea"><span>1x Croissant</span></div>
+            <div class="cart-linea"><span>2x Jugo natural</span></div>
+            <div class="cart-total"><span>Total</span><span>$19.300</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flotante-cocina">
+        <span class="check">✓</span>
+        <div class="texto"><b>Sandwich</b><span>marcado en Cocina</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="objetivos">
+  <div class="objetivos-head">
+    <div class="objetivos-eyebrow">Cómo te ayuda RubyPOS</div>
+    <h2 class="objetivos-titulo">Tres cosas que te quitan tiempo. Una que te lo devuelve.</h2>
+  </div>
+  <div class="objetivos-grid">
+
+    <div class="objetivo-card">
+      <div class="objetivo-num">01</div>
+      <div class="objetivo-titulo">Vender más rápido</div>
+      <ul class="objetivo-lista">
+        <li>Venta rápida por categorías</li>
+        <li>Mesas con cuenta abierta</li>
+        <li>Pedidos por QR desde la mesa</li>
+      </ul>
+    </div>
+
+    <div class="objetivo-card">
+      <div class="objetivo-num">02</div>
+      <div class="objetivo-titulo">Tener el control, siempre</div>
+      <ul class="objetivo-lista">
+        <li>Reportes y cierre de caja</li>
+        <li>Ganancia real, no solo ventas</li>
+        <li>Inventario que se actualiza solo</li>
+      </ul>
+    </div>
+
+    <div class="objetivo-card">
+      <div class="objetivo-num">03</div>
+      <div class="objetivo-titulo">Manejar tu equipo sin líos</div>
+      <ul class="objetivo-lista">
+        <li>PIN y permisos por persona</li>
+        <li>Entrada y salida de turno</li>
+        <li>Nómina calculada sola</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<div class="diferenciadores">
+  <div class="dif-head">
+    <div class="dif-eyebrow">Lo que nos hace distintos</div>
+    <h2 class="dif-titulo">Hecho para tu negocio. No adaptado a él.</h2>
+  </div>
+
+  <!-- 1. Pedidos por QR -->
+  <div class="dif-fila">
+    <div>
+      <span class="dif-badge">📱 Pedidos por QR</span>
+      <h3 class="dif-fila-titulo">El cliente pide desde su mesa. Tú solo confirmas.</h3>
+      <ul class="dif-puntos">
+        <li>El cliente pide desde su propio celular, sin apps ni cuentas</li>
+        <li>Confirmas antes de que pase a cocina — nunca entra sin control</li>
+        <li>El pago sigue siendo en la mesa, como siempre</li>
+      </ul>
+    </div>
+    <div class="dif-visual">
+      <div class="dif-visual-marco">
+        <div style="background:#fff; border-radius:16px; overflow:hidden; box-shadow:0 20px 45px rgba(0,0,0,.14); max-width:280px; margin:0 auto;">
+          <div style="background:var(--verde); padding:14px 16px; display:flex; align-items:center; justify-content:space-between;">
+            <div style="display:flex; align-items:center; gap:7px;"><span style="width:11px;height:11px;border-radius:50%;border:2.5px solid var(--dorado);"></span><span style="font-family:'Sora',sans-serif;font-weight:800;font-size:12px;color:#fff;">La Herencia</span></div>
+            <span style="background:rgba(232,195,117,.15); color:var(--dorado-claro); font-size:10px; font-weight:700; padding:4px 9px; border-radius:6px;">Mesa 5</span>
+          </div>
+          <div style="padding:12px; display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <div style="background:#F4F1EA; border-radius:10px; padding:9px;"><div style="font-size:10.5px;font-weight:700;color:#1C2620;">Café con leche</div><div style="font-size:10.5px;color:#B9822A;font-weight:800;margin-top:4px;">$4.500</div></div>
+            <div style="background:#F4F1EA; border-radius:10px; padding:9px; border:1.5px solid var(--verde);"><div style="font-size:10.5px;font-weight:700;color:#1C2620;">Sandwich</div><div style="font-size:10.5px;color:#B9822A;font-weight:800;margin-top:4px;">$8.000</div></div>
+          </div>
+          <div style="background:var(--verde); margin:0 12px 12px; border-radius:10px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between;">
+            <span style="font-size:10px; color:#fff; font-weight:700;">2 productos · $12.500</span>
+            <span style="background:#C9962F; color:#fff; font-size:10px; font-weight:700; padding:6px 10px; border-radius:6px;">Ver pedido →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Importar menú con IA -->
+  <div class="dif-fila invertida">
+    <div>
+      <span class="dif-badge">🤖 Importar menú con IA</span>
+      <h3 class="dif-fila-titulo">Tu carta, lista en minutos.</h3>
+      <ul class="dif-puntos">
+        <li>Funciona con el menú físico que ya tienes, tal como está</li>
+        <li>Nada se crea sin que lo revises primero</li>
+        <li>Ideal para arrancar el primer día, sin cargar todo a mano</li>
+      </ul>
+    </div>
+    <div class="dif-visual">
+      <div class="dif-visual-marco">
+        <div style="background:#fff; border-radius:16px; padding:20px; box-shadow:0 20px 45px rgba(0,0,0,.14); max-width:280px; margin:0 auto;">
+          <div style="font-size:11px; font-weight:700; color:#8A9A90; margin-bottom:12px;">Detectado en tu menú</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <div style="display:flex; align-items:center; gap:9px; background:#F4F1EA; border-radius:8px; padding:9px 10px;"><span style="width:18px;height:18px;border-radius:5px;background:#4C9F70;color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;font-weight:800;">✓</span><span style="font-size:11px;font-weight:600;color:#1C2620;flex:1;">Churrasco 330g</span><span style="font-size:11px;font-weight:800;color:#B9822A;">$45.000</span></div>
+            <div style="display:flex; align-items:center; gap:9px; background:#F4F1EA; border-radius:8px; padding:9px 10px;"><span style="width:18px;height:18px;border-radius:5px;background:#4C9F70;color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;font-weight:800;">✓</span><span style="font-size:11px;font-weight:600;color:#1C2620;flex:1;">Rib Eye 330g</span><span style="font-size:11px;font-weight:800;color:#B9822A;">$52.000</span></div>
+            <div style="display:flex; align-items:center; gap:9px; background:#F4F1EA; border-radius:8px; padding:9px 10px;"><span style="width:18px;height:18px;border-radius:5px;background:#4C9F70;color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;font-weight:800;">✓</span><span style="font-size:11px;font-weight:600;color:#1C2620;flex:1;">Ensalada César</span><span style="font-size:11px;font-weight:800;color:#B9822A;">$18.000</span></div>
+          </div>
+          <div style="margin-top:14px; background:var(--verde); color:#fff; text-align:center; border-radius:8px; padding:10px; font-size:11px; font-weight:700;">Crear 3 productos</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Cocina en vivo -->
+  <div class="dif-fila">
+    <div>
+      <span class="dif-badge">👨‍🍳 Cocina en tiempo real</span>
+      <h3 class="dif-fila-titulo">Cocina ve cada pedido al instante.</h3>
+      <ul class="dif-puntos">
+        <li>Se pone en amarillo y en rojo si un pedido se está demorando</li>
+        <li>Cada producto se tilda por separado, no todo el pedido de una vez</li>
+        <li>Funciona igual para un pedido de mesa, mostrador, o QR</li>
+      </ul>
+    </div>
+    <div class="dif-visual">
+      <div class="dif-visual-marco">
+        <div style="display:flex; gap:10px;">
+          <div style="background:#fff; border-radius:12px; flex:1; box-shadow:0 20px 45px rgba(0,0,0,.14); overflow:hidden;">
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 12px; border-bottom:1px solid #EEE8DB;">
+              <span style="font-family:'Sora',sans-serif; font-weight:800; font-size:12px; color:var(--verde);">Mesa 5</span>
+              <span style="font-size:11px; font-weight:800; color:#4C9F70;">02:15</span>
+            </div>
+            <div style="padding:8px 10px; display:flex; flex-direction:column; gap:6px;">
+              <div style="display:flex; align-items:center; gap:6px; opacity:.45;"><span style="width:16px;height:16px;border-radius:5px;background:#4C9F70;color:#fff;font-size:9px;display:flex;align-items:center;justify-content:center;">✓</span><span style="font-size:10px; text-decoration:line-through; color:#1C2620;">2x Rib Eye</span></div>
+              <div style="display:flex; align-items:center; gap:6px;"><span style="width:16px;height:16px;border-radius:5px;border:1.5px solid #DDD9CF;"></span><span style="font-size:10px; color:#1C2620;">1x Churrasco</span></div>
+            </div>
+          </div>
+          <div style="background:#fff; border-radius:12px; flex:1; box-shadow:0 20px 45px rgba(0,0,0,.14); overflow:hidden;">
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 12px; border-bottom:1px solid #EEE8DB;">
+              <span style="font-family:'Sora',sans-serif; font-weight:800; font-size:12px; color:var(--verde);">Mesa 12</span>
+              <span style="font-size:11px; font-weight:800; color:#C9962F;">10:42</span>
+            </div>
+            <div style="padding:8px 10px; display:flex; flex-direction:column; gap:6px;">
+              <div style="display:flex; align-items:center; gap:6px;"><span style="width:16px;height:16px;border-radius:5px;border:1.5px solid #DDD9CF;"></span><span style="font-size:10px; color:#1C2620;">3x Empanadas</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="testimonio">
+  <div class="testimonio-caja">
+    <div class="testimonio-comillas">"</div>
+    <p class="testimonio-cita">Es prácticamente lo que nosotros los dueños de negocios necesitamos. Es fácil de usar comparado con otras plataformas que usé antes, y me ahorra mucho tiempo.</p>
+    <div class="testimonio-autor">
+      <div class="testimonio-avatar">LH</div>
+      <div class="testimonio-nombre">
+        <b>La Herencia</b>
+        <span>Cliente de RubyPOS</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="empezar">
+  <div class="empezar-head">
+    <div class="empezar-eyebrow">Cómo empezar</div>
+    <h2 class="empezar-titulo">Tres pasos. Nada más.</h2>
+  </div>
+  <div class="empezar-pasos">
+    <div class="empezar-linea"></div>
+    <div class="empezar-paso">
+      <div class="empezar-num">1</div>
+      <div class="empezar-paso-titulo">Cargar el menú</div>
+      <p class="empezar-paso-texto">A mano, o con fotos de la carta de siempre.</p>
+    </div>
+    <div class="empezar-paso">
+      <div class="empezar-num">2</div>
+      <div class="empezar-paso-titulo">Armar el equipo</div>
+      <p class="empezar-paso-texto">Un PIN por persona, con lo que cada quien puede hacer.</p>
+    </div>
+    <div class="empezar-paso">
+      <div class="empezar-num">3</div>
+      <div class="empezar-paso-titulo">Empezar a vender</div>
+      <p class="empezar-paso-texto">En mostrador, en mesas, o por QR, desde el primer día.</p>
+    </div>
+  </div>
+</div>
+
+<div class="cierre">
+  <h2 class="cierre-titulo">Un sistema que se gana tu confianza todos los días.</h2>
+  <p class="cierre-sub">No con promesas. Con soporte real, y un equipo que sigue mejorando esto todos los días.</p>
+  <div class="cierre-ctas">
+    <a href="#" class="btn-primario">Probar gratis</a>
+    <a href="#" class="btn-secundario">Hablar con nosotros →</a>
+  </div>
+  <div class="footer">
+    <div class="footer-marca">
+      <span class="anillo"></span>
+      <span>RubyPOS</span>
+    </div>
+    <div class="footer-links">
+      <a href="#">Funciones</a>
+      <a href="#">Cómo funciona</a>
+      <a href="#">Contacto</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
