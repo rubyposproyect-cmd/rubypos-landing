@@ -27,6 +27,15 @@
     padding: 12px 24px; border-radius: 9px; text-decoration: none; letter-spacing: -.1px; border: none; cursor: pointer;
   }
 
+  /* Envuelve la tablet y las dos tarjetas flotantes como un solo bloque, para agrandarlas
+     juntas sin perder su posición relativa entre sí. Nace desde la izquierda (donde está
+     hoy) y crece hacia la derecha, usando el espacio que quedaba vacío — sin centrar nada,
+     la asimetría se mantiene a propósito. */
+  .hero-visual {
+    position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    transform: translateX(250px);
+  }
+
   /* ---- Capa 1: la tablet, de fondo ---- */
   .tablet-fondo {
     position: absolute; z-index: 0; left: 80px; top: 50%; transform: translateY(-50%);
@@ -93,7 +102,7 @@
   }
 
   /* ---- Capa 3: el texto ---- */
-  .hero-texto { position: relative; z-index: 2; max-width: 600px; text-align: left; padding-top: 24px; }
+  .hero-texto { position: relative; z-index: 2; max-width: 600px; text-align: left; padding-top: 24px; margin-left: 90px; }
 
   .chip {
     display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(232,195,117,.22);
@@ -158,7 +167,7 @@
     nav { flex-wrap: wrap; row-gap: 12px; margin-bottom: 8px; }
     .nav-links { display: none; }
 
-    .hero-texto { max-width: 100%; padding-top: 20px; text-align: left; }
+    .hero-texto { max-width: 100%; padding-top: 20px; text-align: left; margin-left: 0; }
     h1 { font-size: clamp(32px, 8vw, 42px); }
     .hero-sub { font-size: 16px; max-width: 100%; }
     .selector { flex-wrap: wrap; }
@@ -166,7 +175,9 @@
     .btn-primario { width: 100%; justify-content: center; }
     .btn-secundario { height: auto; padding-left: 0; }
 
+    .hero-visual { position: static; transform: none; }
     .tablet-fondo { position: static; width: 100%; margin-top: 36px; pointer-events: auto; transform: none; }
+
     .tablet-marco-wrap {
       width: 100%; overflow: hidden;
       height: calc(559px * ((100vw - 40px) / 880px));
@@ -205,26 +216,34 @@
   /* ---- Sección 2: Diferenciales ---- */
   .contenedor-1240 { max-width: 1240px; margin: 0 auto; }
   .dif-bloque {
-    background: #f9f7f2; border: 1px solid #eee8db; border-radius: 22px; padding: 36px;
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 40px; align-items: center; margin-bottom: 24px;
+    background: #f9f7f2; border: 1px solid #eee8db; border-radius: 22px; padding: 32px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 40px; align-items: center; margin-bottom: 20px;
   }
+  .dif-bloque.invertida > *:first-child { order: 2; }
+  .dif-bloque.invertida > *:last-child { order: 1; }
   .dif-tag-fila { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
   .dif-tag2 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #b9822a; }
   .dif-titulo2 { font-family: 'Sora', sans-serif; font-size: 26px; font-weight: 600; color: #1c2620; margin-bottom: 18px; letter-spacing: -.01em; line-height: 1.25; }
   .dif-lista2 { list-style: none; }
   .dif-lista2 li { font-size: 16px; font-weight: 400; color: #4c5c53; padding: 7px 0; }
 
-  .demo-card { background: #fff; border: 1px solid #e9e3d6; border-radius: 16px; padding: 22px; }
-  .demo-rotulo { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #8a9a90; margin-bottom: 14px; }
-  .demo-fila { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-top: 1px solid #f5f2e9; }
+  .demo-card { background: #fff; border: 1px solid #e9e3d6; border-radius: 16px; padding: 18px; overflow: hidden; max-width: 400px; }
+  .demo-header { display: flex; align-items: center; justify-content: space-between; padding: 11px 18px; background: #0a2e22; margin: -18px -18px 12px; }
+  .demo-header-marca { display: flex; align-items: center; gap: 7px; }
+  .demo-header-anillo { width: 12px; height: 12px; border-radius: 50%; border: 2.5px solid #c9962f; }
+  .demo-header-titulo { font-family: 'Sora', sans-serif; font-size: 11.5px; font-weight: 800; color: #fff; }
+  .demo-header-tag { background: rgba(232,195,117,.16); color: #e8c375; font-size: 10.5px; font-weight: 700; padding: 4px 10px; border-radius: 6px; }
+  .demo-rotulo { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #8a9a90; margin-bottom: 8px; }
+  .demo-fila { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-top: 1px solid #f5f2e9; }
   .demo-fila:first-of-type { border-top: none; padding-top: 0; }
-  .demo-marca-check { width: 22px; height: 22px; border-radius: 50%; background: #e9f3ec; color: #2f9e6e; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; flex-shrink: 0; }
+  .demo-marca-check { width: 22px; height: 22px; border-radius: 6px; background: #4C9F70; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; flex-shrink: 0; }
   .demo-marca-cant { width: 22px; height: 22px; border-radius: 6px; background: #f0ece2; color: #4c5c53; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
   .demo-nombre { flex: 1; font-size: 14px; color: #1c2620; font-weight: 600; }
-  .demo-valor { font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 700; color: #b9822a; }
-  .demo-pie { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; padding-top: 14px; border-top: 1px solid #eee8db; }
-  .demo-resumen { font-size: 13px; color: #4c5c53; }
-  .demo-accion { font-size: 12px; font-weight: 700; color: #fff; background: #0a2e22; padding: 8px 13px; border-radius: 7px; white-space: nowrap; }
+  .demo-valor { font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 700; color: #C9962F; }
+  .demo-pie { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee8db; }
+  .demo-resumen { font-size: 13px; color: #4c5c53; font-weight: 600; }
+  .demo-accion { font-size: 12.5px; font-weight: 700; color: #fff; background: #C9962F; padding: 9px 16px; border-radius: 8px; white-space: nowrap; font-family: 'Sora', sans-serif; }
+  .demo-accion.oscura { background: #0a2e22; }
 
   .funciones-cierre2 { font-family: 'Sora', sans-serif; font-size: 26px; font-weight: 600; text-align: center; margin: 64px 0 32px; color: #1c2620; }
   .funciones-grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 14px; }
@@ -252,6 +271,12 @@
   .espacio-etiqueta { font-size: 13px; color: rgba(169,194,182,.55); margin-top: 6px; }
   .espacio-nota { text-align: center; font-size: 12px; color: rgba(169,194,182,.45); margin-top: 22px; font-style: italic; }
 
+  /* Misma franja, ahora con datos reales confirmados por el negocio: sin borde punteado, cifra dorada sólida */
+  .stats-reales { border-top: 1px solid rgba(232,195,117,.18); max-width: 900px; margin: 56px auto 0; padding-top: 40px; }
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 20px; text-align: center; }
+  .stats-cifra { font-family: 'Sora', sans-serif; font-size: 32px; font-weight: 800; color: #e8c375; font-variant-numeric: tabular-nums; }
+  .stats-etiqueta { font-size: 13px; color: #8ba79a; margin-top: 6px; }
+
   /* ---- Sección 4: Pasos ---- */
   .pasos-grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 32px; max-width: 1000px; margin: 0 auto; }
   .paso-col { border-top: 3px solid #e8c375; padding-top: 22px; }
@@ -271,6 +296,13 @@
   .cierre-titulo2 { font-family: 'Sora', sans-serif; font-weight: 800; font-size: clamp(36px, 4vw, 58px); color: #fff; margin-bottom: 20px; letter-spacing: -.02em; }
   .cierre-sub2 { font-size: 18px; color: #a9c2b6; max-width: 44ch; margin: 0 auto 40px; }
   .cierre-ctas2 { display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; }
+
+  /* Corrige el orden en celular: el texto siempre va antes que la maqueta,
+     sin importar la alternancia que se usa en escritorio para variar el ritmo visual. */
+  @media (max-width: 900px) {
+    .dif-bloque.invertida > *:first-child { order: 1; }
+    .dif-bloque.invertida > *:last-child { order: 2; }
+  }
 </style>
 </head>
 <body>
@@ -344,7 +376,7 @@
       <a href="#">Cómo funciona</a>
       <a href="#">Planes</a>
     </div>
-    <button class="nav-cta">Probar gratis</button>
+    <a href="https://app.rubypos.com.co" class="nav-cta">Probar gratis</a>
   </nav>
 
   <div class="hero-texto">
@@ -360,7 +392,7 @@
 
     <div class="hero-ctas">
       <div class="fila-ctas">
-        <a href="#" class="btn-primario">Probar gratis</a>
+        <a href="https://app.rubypos.com.co" class="btn-primario">Probar gratis</a>
         <a href="#" class="btn-secundario">Ver una venta completa (2 min) <span class="flecha">→</span></a>
       </div>
       <div class="btn-primario-nota">Sin tarjeta. Sin instalar nada.</div>
@@ -371,6 +403,8 @@
       <p>La Herencia lleva sus mesas, su cocina y su caja con RubyPOS.</p>
     </div>
   </div>
+
+  <div class="hero-visual">
 
   <div class="tablet-fondo">
     <div class="tablet-marco-wrap">
@@ -417,6 +451,8 @@
     <span class="check-icono"><span>✓</span></span>
     <div><b>Marcado en Cocina</b><span class="sub">Listo para entregar</span></div>
   </div>
+
+  </div>
 </div>
 
 <!-- ==================== SECCIÓN 1: OBJETIVO → SOLUCIÓN ==================== -->
@@ -457,13 +493,13 @@
       <div class="objetivo-card2">
         <div class="obj-numero">03</div>
         <div class="obj-rotulo">Tu objetivo</div>
-        <div class="obj-titulo">Que tu equipo trabaje sin ti encima</div>
+        <div class="obj-titulo">Que tu equipo trabaje con autonomía</div>
         <div class="obj-hairline"></div>
         <div class="obj-rotulo">Cómo lo resuelve</div>
         <ul class="obj-lista">
           <li><span class="obj-punto"></span>Un PIN por persona con permisos propios</li>
           <li><span class="obj-punto"></span>Entrada y salida de turno</li>
-          <li><span class="obj-punto"></span>Nómina calculada sola</li>
+          <li><span class="obj-punto"></span>Asistente de nómina</li>
         </ul>
       </div>
 
@@ -476,7 +512,7 @@
   <div class="contenedor-1240">
     <div class="encabezado-seccion centrado">
       <div class="eyebrow2">Lo que nos hace distintos</div>
-      <h2 class="titulo2">Hecho para tu negocio. No adaptado a él.</h2>
+      <h2 class="titulo2">Pensado para tu negocio, no forzado a encajar.</h2>
     </div>
 
     <!-- 1. Pedidos por QR -->
@@ -494,18 +530,22 @@
         </ul>
       </div>
       <div class="demo-card">
+        <div class="demo-header">
+          <div class="demo-header-marca"><span class="demo-header-anillo"></span><span class="demo-header-titulo">RubyPOS</span></div>
+          <span class="demo-header-tag">Mesa 5</span>
+        </div>
         <div class="demo-rotulo">Pedido entrante</div>
         <div class="demo-fila"><span class="demo-marca-cant">×1</span><span class="demo-nombre">Café con leche</span><span class="demo-valor">$4.500</span></div>
         <div class="demo-fila"><span class="demo-marca-cant">×1</span><span class="demo-nombre">Sandwich</span><span class="demo-valor">$8.000</span></div>
         <div class="demo-pie">
-          <span class="demo-resumen">Mesa 5 · $12.500</span>
+          <span class="demo-resumen">Total $12.500</span>
           <span class="demo-accion">Confirmar</span>
         </div>
       </div>
     </div>
 
     <!-- 2. Importar menú con IA -->
-    <div class="dif-bloque">
+    <div class="dif-bloque invertida">
       <div>
         <div class="dif-tag-fila">
           <svg width="22" height="22"><use href="#ico-camara"/></svg>
@@ -519,13 +559,16 @@
         </ul>
       </div>
       <div class="demo-card">
+        <div class="demo-header">
+          <div class="demo-header-marca"><span class="demo-header-anillo"></span><span class="demo-header-titulo">RubyPOS</span></div>
+          <span class="demo-header-tag">Importar menú</span>
+        </div>
         <div class="demo-rotulo">Detectado en tu menú</div>
         <div class="demo-fila"><span class="demo-marca-check">✓</span><span class="demo-nombre">Churrasco 330g</span><span class="demo-valor">$45.000</span></div>
         <div class="demo-fila"><span class="demo-marca-check">✓</span><span class="demo-nombre">Rib Eye 330g</span><span class="demo-valor">$52.000</span></div>
-        <div class="demo-fila"><span class="demo-marca-check">✓</span><span class="demo-nombre">Ensalada César</span><span class="demo-valor">$18.000</span></div>
         <div class="demo-pie">
-          <span class="demo-resumen">3 productos detectados</span>
-          <span class="demo-accion">Crear productos</span>
+          <span class="demo-resumen">2 productos detectados</span>
+          <span class="demo-accion oscura">Crear productos</span>
         </div>
       </div>
     </div>
@@ -539,18 +582,45 @@
         </div>
         <h3 class="dif-titulo2">Cocina ve cada pedido al instante.</h3>
         <ul class="dif-lista2">
-          <li>Se pone en amarillo y en rojo si un pedido se está demorando</li>
+          <li>Los pedidos que más esperan se destacan solos</li>
           <li>Cada producto se tilda por separado, no todo el pedido de una vez</li>
           <li>Funciona igual para un pedido de mesa, mostrador, o QR</li>
         </ul>
       </div>
       <div class="demo-card">
-        <div class="demo-rotulo">En cocina ahora</div>
-        <div class="demo-fila"><span class="demo-marca-cant">×3</span><span class="demo-nombre">Mesa 5</span><span class="demo-valor" style="color:#2f9e6e">02:15</span></div>
-        <div class="demo-fila"><span class="demo-marca-cant">×1</span><span class="demo-nombre">Mesa 12</span><span class="demo-valor" style="color:#c9962f">10:42</span></div>
+        <div class="demo-header">
+          <div class="demo-header-marca"><span class="demo-header-anillo"></span><span class="demo-header-titulo">RubyPOS</span></div>
+          <span class="demo-header-tag">Cocina</span>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <div style="flex:1; background:#F4F1EA; border-radius:10px; padding:11px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span style="font-family:'Sora',sans-serif; font-weight:800; font-size:12.5px; color:#0a2e22;">Mesa 5</span>
+              <span style="font-size:11px; font-weight:800; color:#4C9F70;">02:15</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px; opacity:.4; margin-bottom:5px;">
+              <span style="width:14px;height:14px;border-radius:4px;background:#4C9F70;color:#fff;font-size:8px;display:flex;align-items:center;justify-content:center;">✓</span>
+              <span style="font-size:10.5px; text-decoration:line-through; color:#1c2620;">2x Rib Eye</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span style="width:14px;height:14px;border-radius:4px;border:1.5px solid #DDD9CF;"></span>
+              <span style="font-size:10.5px; color:#1c2620;">1x Churrasco</span>
+            </div>
+          </div>
+          <div style="flex:1; background:#F4F1EA; border-radius:10px; padding:11px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span style="font-family:'Sora',sans-serif; font-weight:800; font-size:12.5px; color:#0a2e22;">Mesa 12</span>
+              <span style="font-size:11px; font-weight:800; color:#C9962F;">10:42</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span style="width:14px;height:14px;border-radius:4px;border:1.5px solid #DDD9CF;"></span>
+              <span style="font-size:10.5px; color:#1c2620;">3x Empanadas</span>
+            </div>
+          </div>
+        </div>
         <div class="demo-pie">
           <span class="demo-resumen">2 pedidos en preparación</span>
-          <span class="demo-accion">Ver cocina</span>
+          <span class="demo-accion oscura">Ver cocina</span>
         </div>
       </div>
     </div>
@@ -563,7 +633,7 @@
       <div class="funcion-celda"><svg class="funcion-icono2"><use href="#ico-monitor"/></svg><span class="funcion-etiqueta">Cocina en tiempo real</span></div>
       <div class="funcion-celda"><svg class="funcion-icono2"><use href="#ico-chart"/></svg><span class="funcion-etiqueta">Reportes del negocio</span></div>
       <div class="funcion-celda"><svg class="funcion-icono2"><use href="#ico-caja"/></svg><span class="funcion-etiqueta">Cierre de caja diario</span></div>
-      <div class="funcion-celda"><svg class="funcion-icono2"><use href="#ico-empleados"/></svg><span class="funcion-etiqueta">Empleados y nómina</span></div>
+      <div class="funcion-celda"><svg class="funcion-icono2"><use href="#ico-empleados"/></svg><span class="funcion-etiqueta">Empleados y Asistente de nómina</span></div>
       <div class="funcion-celda"><svg class="funcion-icono2"><use href="#ico-numeros"/></svg><span class="funcion-etiqueta">Mis Números — tu ganancia real, clara</span></div>
     </div>
   </div>
@@ -576,14 +646,12 @@
   <div class="testimonio-negocio">La Herencia</div>
   <div class="testimonio-rol">Cliente de RubyPOS</div>
 
-  <div class="espacio-reservado">
-    <div class="espacio-rotulo">Espacio reservado · completar con datos reales</div>
-    <div class="espacio-grid">
-      <div><div class="espacio-cifra">—</div><div class="espacio-etiqueta">Tiempo de cierre de caja</div></div>
-      <div><div class="espacio-cifra">—</div><div class="espacio-etiqueta">Ventas al mes</div></div>
-      <div><div class="espacio-cifra">—</div><div class="espacio-etiqueta">Tiempo usando RubyPOS</div></div>
+  <div class="stats-reales">
+    <div class="stats-grid">
+      <div><div class="stats-cifra">3 a 5 min</div><div class="stats-etiqueta">Tiempo de cierre de caja</div></div>
+      <div><div class="stats-cifra">3.000</div><div class="stats-etiqueta">Ventas al mes</div></div>
+      <div><div class="stats-cifra">3 meses</div><div class="stats-etiqueta">Tiempo usando RubyPOS</div></div>
     </div>
-    <div class="espacio-nota">No publicar esta franja hasta tener estas cifras medidas de verdad, con permiso del negocio.</div>
   </div>
 </div>
 
