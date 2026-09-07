@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RubyPOS: Planes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #0A2E22;
+    --dorado: #C9962F;
+    --dorado-claro: #E8C375;
+    --crema: #F4F1EA;
+    --blanco: #FFFFFF;
+    --texto-claro: rgba(255,255,255,.72);
+    --texto-mute: rgba(255,255,255,.5);
+    --texto-cuerpo: #4c5c53;
+    --texto-titulo: #1c2620;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: var(--blanco); font-variant-numeric: tabular-nums; }
+
+  /* ---- Nav, igual al resto del sitio ---- */
+  .topbar { background: var(--verde); padding: 0 72px 72px; position: relative; overflow: hidden; text-align: center; }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 36px 0; text-align: left; }
+  .marca { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .anillo { width: 26px; height: 26px; border-radius: 50%; border: 4px solid var(--dorado); }
+  .marca-texto { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 21px; color: var(--blanco); letter-spacing: -.2px; }
+  .nav-links { display: flex; align-items: center; gap: 40px; }
+  .nav-links a { color: var(--texto-claro); text-decoration: none; font-size: 15px; font-weight: 500; }
+  .nav-links a.activa { color: var(--dorado-claro); font-weight: 700; }
+  .nav-cta { background: var(--dorado); color: var(--verde); font-weight: 700; font-size: 14px; padding: 12px 24px; border-radius: 9px; text-decoration: none; letter-spacing: -.1px; }
+
+  /* ---- 1. Encabezado de precio ---- */
+  .precio-eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--dorado); margin-bottom: 16px; }
+  .precio-titulo { font-family: 'Sora', sans-serif; font-weight: 800; font-size: clamp(34px, 4vw, 52px); color: #fff; letter-spacing: -.02em; margin-bottom: 14px; }
+  .precio-sub { font-size: 18px; color: var(--texto-claro); max-width: 46ch; margin: 0 auto 36px; }
+
+  .toggle-plan { display: inline-flex; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.16); border-radius: 100px; padding: 5px; gap: 4px; margin-bottom: 40px; }
+  .toggle-plan button {
+    position: relative; height: 44px; padding: 0 22px; border-radius: 100px; border: none; background: transparent;
+    color: var(--texto-claro); font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer;
+    display: flex; align-items: center; gap: 8px; transition: all .15s ease;
+  }
+  .toggle-plan button.activo { background: #fff; color: var(--verde); }
+  .toggle-badge { background: var(--dorado); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 20px; white-space: nowrap; }
+  .toggle-plan button.activo .toggle-badge { background: var(--dorado); color: #fff; }
+
+  .precio-card { background: #fff; border-radius: 24px; max-width: 420px; margin: 0 auto; padding: 40px 36px; box-shadow: 0 30px 70px rgba(0,0,0,.28); }
+  .precio-card-etiqueta { font-family: 'Sora', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--dorado); margin-bottom: 14px; }
+  .precio-card-fila { display: flex; align-items: baseline; justify-content: center; gap: 8px; }
+  .precio-card-cifra { font-family: 'Sora', sans-serif; font-size: 56px; font-weight: 800; color: var(--texto-titulo); letter-spacing: -.02em; }
+  .precio-card-periodo { font-size: 16px; color: #8a9a90; font-weight: 600; }
+  .precio-card-sede { font-size: 14px; color: #8a9a90; margin-top: 4px; margin-bottom: 18px; }
+  .precio-card-ahorro { font-size: 13.5px; font-weight: 600; color: #2f9e6e; background: #dcefe3; border-radius: 10px; padding: 10px 14px; margin-bottom: 20px; }
+  .precio-card .btn-primario { display: block; text-align: center; margin-bottom: 14px; }
+  .precio-card-nota { font-size: 12.5px; color: #8a9a90; }
+
+  .btn-primario {
+    height: 56px; padding: 0 30px; border-radius: 13px; background: var(--dorado); color: #fff; font-family: 'Sora', sans-serif;
+    font-size: 16px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; text-decoration: none;
+    box-shadow: 0 10px 26px rgba(201,150,47,.28); border: none; cursor: pointer;
+  }
+  .btn-secundario { color: var(--blanco); font-weight: 600; font-size: 16px; text-decoration: none; }
+
+  /* ---- 2. La promesa ---- */
+  .seccion-promesa { padding: 96px 56px; text-align: center; }
+  .promesa-titulo { font-family: 'Sora', sans-serif; font-weight: 800; font-size: clamp(28px, 3vw, 40px); color: var(--texto-titulo); letter-spacing: -.02em; max-width: 700px; margin: 0 auto 48px; text-wrap: balance; }
+  .promesa-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto; text-align: left; }
+  .promesa-card { background: #f9f7f2; border: 1px solid #eee8db; border-radius: 18px; padding: 28px; }
+  .promesa-card h3 { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 600; color: var(--texto-titulo); margin-bottom: 10px; }
+  .promesa-card p { font-size: 15px; line-height: 1.6; color: var(--texto-cuerpo); }
+
+  /* ---- 3. Todo lo que incluye ---- */
+  .seccion-incluye { background: #f9f7f2; padding: 96px 56px; }
+  .incluye-titulo { font-family: 'Sora', sans-serif; font-weight: 800; font-size: clamp(28px, 3vw, 40px); color: var(--texto-titulo); letter-spacing: -.02em; text-align: center; margin-bottom: 48px; }
+  .funciones-grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 14px; max-width: 1100px; margin: 0 auto; }
+  .funcion-celda { background: #fff; border: 1px solid #eee8db; border-radius: 14px; padding: 18px 20px; display: flex; align-items: center; gap: 14px; }
+  .funcion-icono2 { width: 26px; height: 26px; flex-shrink: 0; }
+  .funcion-etiqueta { font-size: 15px; font-weight: 500; color: var(--texto-titulo); }
+
+  /* ---- 4. Cómo escala por sede ---- */
+  .seccion-sedes { padding: 96px 56px; }
+  .sedes-card { background: var(--verde); border-radius: 28px; padding: 64px 56px; max-width: 1100px; margin: 0 auto; text-align: center; }
+  .sedes-titulo { font-family: 'Sora', sans-serif; font-weight: 800; font-size: clamp(26px, 2.8vw, 36px); color: #fff; letter-spacing: -.02em; margin-bottom: 14px; }
+  .sedes-texto { font-size: 16px; color: var(--texto-claro); max-width: 52ch; margin: 0 auto 44px; }
+  .sedes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr)); gap: 20px; max-width: 760px; margin: 0 auto; }
+  .sedes-cifra { font-family: 'Sora', sans-serif; font-size: 26px; font-weight: 800; color: var(--dorado-claro); }
+  .sedes-etiqueta { font-size: 13px; color: var(--texto-claro); margin-top: 6px; }
+
+  /* ---- 5. Preguntas frecuentes ---- */
+  .seccion-faq { padding: 96px 56px; }
+  .encabezado-seccion { max-width: 640px; margin: 0 auto 48px; text-align: center; }
+  .eyebrow2 { font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: #6b7d73; margin-bottom: 14px; }
+  .titulo2 { font-family: 'Sora', sans-serif; font-weight: 800; font-size: clamp(28px, 3vw, 40px); letter-spacing: -.02em; color: var(--texto-titulo); }
+  .objeciones-lista { max-width: 780px; margin: 0 auto; }
+  .objecion-item { border-top: 1px solid #eee8db; padding: 26px 0; }
+  .objecion-item:last-child { border-bottom: 1px solid #eee8db; }
+  .objecion-pregunta { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 600; color: var(--texto-titulo); margin-bottom: 8px; }
+  .objecion-respuesta { font-size: 15.5px; line-height: 1.6; color: var(--texto-cuerpo); }
+
+  /* ---- 6. Cierre ---- */
+  .cierre-final { background: var(--verde); padding: 100px 56px; text-align: center; }
+  .cierre-titulo { font-family: 'Sora', sans-serif; font-weight: 800; font-size: clamp(34px, 4vw, 52px); color: #fff; margin-bottom: 16px; letter-spacing: -.02em; }
+  .cierre-sub { font-size: 17px; color: var(--texto-claro); max-width: 44ch; margin: 0 auto 34px; }
+  .cierre-nota { font-size: 13px; color: var(--texto-mute); margin-top: 14px; }
+
+  /* ---- Footer, igual al resto del sitio ---- */
+  .footer-seccion { background: var(--verde); padding: 40px 56px 44px; }
+  .footer { border-top: 1px solid rgba(232,195,117,.14); padding-top: 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; max-width: 1100px; margin: 0 auto; }
+  .footer-marca { display: flex; align-items: center; gap: 9px; text-decoration: none; }
+  .footer-marca .anillo { width: 18px; height: 18px; border-width: 3px; }
+  .footer-marca span { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 15px; color: #fff; }
+  .footer-links { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+  .footer-links a { color: var(--texto-mute); text-decoration: none; font-size: 13.5px; }
+  .footer-legal { color: rgba(255,255,255,.35); font-size: 13px; }
+
+  @media (max-width: 700px) {
+    .topbar { padding: 0 20px 48px; }
+    nav { padding: 22px 0; }
+    .nav-links { display: none; }
+    .precio-card { padding: 32px 24px; }
+    .precio-card-cifra { font-size: 44px; }
+    .seccion-promesa, .seccion-incluye, .seccion-sedes, .seccion-faq { padding: 56px 20px; }
+    .sedes-card { padding: 44px 28px; }
+    .cierre-final { padding: 64px 20px; }
+    .footer-seccion { padding: 32px 24px 36px; }
+    .footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="ico-qr" viewBox="0 0 100 100">
+      <rect x="14" y="14" width="72" height="72" rx="14" stroke="#173B2C" stroke-width="3" fill="none"/>
+      <rect x="30" y="30" width="14" height="14" rx="3" stroke="#173B2C" stroke-width="3" fill="none"/>
+      <rect x="56" y="30" width="14" height="14" rx="3" stroke="#173B2C" stroke-width="3" fill="none"/>
+      <rect x="30" y="56" width="14" height="14" rx="3" stroke="#173B2C" stroke-width="3" fill="none"/>
+      <rect x="58" y="58" width="10" height="10" rx="2" fill="#E8C375"/>
+    </symbol>
+    <symbol id="ico-camara" viewBox="0 0 100 100">
+      <path d="M20 34 h14 l6 -10 h20 l6 10 h14 a4 4 0 0 1 4 4 v40 a4 4 0 0 1 -4 4 h-60 a4 4 0 0 1 -4 -4 v-40 a4 4 0 0 1 4 -4 Z" stroke="#173B2C" stroke-width="3" stroke-linejoin="round" fill="none"/>
+      <circle cx="50" cy="58" r="14" stroke="#173B2C" stroke-width="3" fill="none"/>
+      <circle cx="72" cy="42" r="3.5" fill="#E8C375"/>
+    </symbol>
+    <symbol id="ico-monitor" viewBox="0 0 100 100">
+      <rect x="16" y="22" width="68" height="46" rx="6" stroke="#173B2C" stroke-width="3" fill="none"/>
+      <path d="M40 80 h20 M50 68 v12" stroke="#173B2C" stroke-width="3" stroke-linecap="round"/>
+      <path d="M32 45 l10 10 l24 -20" stroke="#E8C375" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="ico-tag" viewBox="0 0 100 100">
+      <path d="M20 24 h32 l30 30 a5 5 0 0 1 0 7 l-25 25 a5 5 0 0 1 -7 0 l-30 -30 v-32 Z" stroke="#173B2C" stroke-width="3" stroke-linejoin="round" fill="none"/>
+      <circle cx="36" cy="40" r="6" fill="#E8C375"/>
+    </symbol>
+    <symbol id="ico-boxes" viewBox="0 0 100 100">
+      <rect x="20" y="58" width="16" height="24" rx="2" stroke="#173B2C" stroke-width="3" fill="none"/>
+      <rect x="42" y="42" width="16" height="40" rx="2" stroke="#173B2C" stroke-width="3" fill="none"/>
+      <rect x="64" y="24" width="16" height="58" rx="2" fill="#E8C375"/>
+    </symbol>
+    <symbol id="ico-sliders" viewBox="0 0 100 100">
+      <path d="M18 32 h64 M18 50 h64 M18 68 h64" stroke="#173B2C" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="38" cy="32" r="7" fill="#fff" stroke="#173B2C" stroke-width="3"/>
+      <circle cx="62" cy="50" r="7" fill="#E8C375" stroke="#E8C375" stroke-width="3"/>
+      <circle cx="46" cy="68" r="7" fill="#fff" stroke="#173B2C" stroke-width="3"/>
+    </symbol>
+    <symbol id="ico-chart" viewBox="0 0 100 100">
+      <path d="M18 80 h64" stroke="#173B2C" stroke-width="3" stroke-linecap="round"/>
+      <path d="M22 62 l18 -16 l14 12 l24 -30" stroke="#173B2C" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="78" cy="28" r="5" fill="#E8C375"/>
+    </symbol>
+    <symbol id="ico-caja" viewBox="0 0 100 100">
+      <rect x="16" y="30" width="68" height="46" rx="8" stroke="#173B2C" stroke-width="3" fill="none"/>
+      <path d="M16 48 h68" stroke="#173B2C" stroke-width="3"/>
+      <rect x="42" y="58" width="16" height="8" rx="3" fill="#E8C375"/>
+    </symbol>
+    <symbol id="ico-empleados" viewBox="0 0 100 100">
+      <circle cx="38" cy="36" r="13" stroke="#173B2C" stroke-width="3" fill="none"/>
+      <path d="M16 82 c0 -18 14 -28 22 -28 s22 10 22 28" stroke="#173B2C" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <circle cx="68" cy="32" r="10" fill="#E8C375"/>
+      <path d="M52 80 c2 -14 12 -22 20 -22 s18 8 20 22" stroke="#173B2C" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="ico-numeros" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="32" stroke="#173B2C" stroke-width="3" fill="none"/>
+      <path d="M36 56 l10 -14 l10 8 l14 -20" stroke="#173B2C" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M62 30 h10 v10" stroke="#E8C375" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ==================== 1. ENCABEZADO DE PRECIO ==================== -->
+<div class="topbar">
+  <nav>
+    <a href="index.html" class="marca">
+      <span class="anillo"></span>
+      <span class="marca-texto">RubyPOS</span>
+    </a>
+    <div class="nav-links">
+      <a href="funciones.html">Funciones</a>
+      <a href="index.html#como-funciona">Cómo funciona</a>
+      <a href="planes.html" class="activa">Planes</a>
+    </div>
+    <a href="https://app.rubypos.com.co" class="nav-cta">Probar gratis</a>
+  </nav>
+
+  <div class="precio-eyebrow">Planes</div>
+  <h1 class="precio-titulo">Un precio. Todo incluido.</h1>
+  <p class="precio-sub">Sin módulos aparte, sin sorpresas. Todo lo que RubyPOS hace, desde el primer día.</p>
+
+  <div class="toggle-plan">
+    <button class="activo" data-plan="mensual">Mensual</button>
+    <button data-plan="anual">Anual <span class="toggle-badge">2 meses gratis</span></button>
+  </div>
+
+  <div class="precio-card">
+    <div class="precio-card-etiqueta">Plan RubyPOS</div>
+    <div class="precio-card-fila">
+      <span class="precio-card-cifra" id="precio-cifra">$21.900</span>
+      <span class="precio-card-periodo" id="precio-periodo">/ mes</span>
+    </div>
+    <div class="precio-card-sede">por sede</div>
+    <p class="precio-card-ahorro" id="precio-ahorro" hidden></p>
+    <a href="https://app.rubypos.com.co" class="btn-primario">Probar gratis</a>
+    <div class="precio-card-nota">30 días gratis. No se cobra hasta que termine la prueba.</div>
+  </div>
+</div>
+
+<!-- ==================== 2. LA PROMESA ==================== -->
+<div class="seccion-promesa">
+  <h2 class="promesa-titulo">Nunca vas a encontrar un cargo que no viste venir.</h2>
+  <div class="promesa-grid">
+    <div class="promesa-card">
+      <h3>Sin módulos aparte</h3>
+      <p>Pedidos por QR, importar menú con IA, Cocina en tiempo real, Empleados, Mis Números: todo va en el mismo precio.</p>
+    </div>
+    <div class="promesa-card">
+      <h3>Sin contrato de permanencia</h3>
+      <p>Cancelas cuando quieras, sin penalidad ni letra chica.</p>
+    </div>
+    <div class="promesa-card">
+      <h3>Tus datos son tuyos</h3>
+      <p>Se exportan cuando quieras, sin pedir permiso ni pagar nada extra por eso.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 3. TODO LO QUE INCLUYE ==================== -->
+<div class="seccion-incluye">
+  <h2 class="incluye-titulo">Todo lo que incluye</h2>
+  <div class="funciones-grid2">
+    <div class="funcion-celda"><svg class="funcion-icono2"><use href="#ico-qr"/></svg><span class="funcion-etiqueta">Pedidos por QR</span></div>
+    <div class="funcion-celda"><svg class="funcion-icono2"><use href="#ico-camara"/></svg><span class="funcion-etiqueta">Importar menú con IA</span></div>
+    <div class="funcion-celda"><svg class="funcion-icono2"><use href="#ico-monitor"/></svg><span class="funcion-etiqueta">Cocina en tiempo real</span></div>
+    <div class="funcion-celda"><svg class="funcion-icono2"><use href="#ico-tag"/></svg><span class="funcion-etiqueta">Productos y categorías</span></div>
+    <div class="funcion-celda"><svg class="funcion-icono2"><use href="#ico-boxes"/></svg><span class="funcion-etiqueta">Control de inventario</span></div>
+    <div class="funcion-celda"><svg class="funcion-icono2"><use href="#ico-sliders"/></svg><span class="funcion-etiqueta">Modificadores por producto</span></div>
+    <div class="funcion-celda"><svg class="funcion-icono2"><use href="#ico-chart"/></svg><span class="funcion-etiqueta">Reportes del negocio</span></div>
+    <div class="funcion-celda"><svg class="funcion-icono2"><use href="#ico-caja"/></svg><span class="funcion-etiqueta">Cierre de caja diario</span></div>
+    <div class="funcion-celda"><svg class="funcion-icono2"><use href="#ico-empleados"/></svg><span class="funcion-etiqueta">Empleados y Asistente de nómina</span></div>
+    <div class="funcion-celda"><svg class="funcion-icono2"><use href="#ico-numeros"/></svg><span class="funcion-etiqueta">Mis Números</span></div>
+  </div>
+</div>
+
+<!-- ==================== 4. CÓMO ESCALA POR SEDE ==================== -->
+<div class="seccion-sedes">
+  <div class="sedes-card">
+    <h2 class="sedes-titulo">¿Tienes más de una sede?</h2>
+    <p class="sedes-texto">El precio escala de forma simple: pagas lo mismo por cada sede que agregues, nunca más que eso.</p>
+    <div class="sedes-grid">
+      <div><div class="sedes-cifra">$21.900</div><div class="sedes-etiqueta">1 sede / mes</div></div>
+      <div><div class="sedes-cifra">$43.800</div><div class="sedes-etiqueta">2 sedes / mes</div></div>
+      <div><div class="sedes-cifra">$65.700</div><div class="sedes-etiqueta">3 sedes / mes</div></div>
+      <div><div class="sedes-cifra">$109.500</div><div class="sedes-etiqueta">5 sedes / mes</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 5. PREGUNTAS FRECUENTES ==================== -->
+<div class="seccion-faq">
+  <div class="encabezado-seccion">
+    <div class="eyebrow2">Antes de decidir</div>
+    <h2 class="titulo2">Preguntas frecuentes</h2>
+  </div>
+  <div class="objeciones-lista">
+    <div class="objecion-item">
+      <div class="objecion-pregunta">¿Cuánto cuesta la prueba de 30 días?</div>
+      <div class="objecion-respuesta">Nada. Se pide tarjeta para activarla, pero no se cobra nada hasta el día 31.</div>
+    </div>
+    <div class="objecion-item">
+      <div class="objecion-pregunta">¿Qué pasa si cancelo antes de que termine la prueba?</div>
+      <div class="objecion-respuesta">No se te cobra nada.</div>
+    </div>
+    <div class="objecion-item">
+      <div class="objecion-pregunta">¿El plan anual realmente ahorra?</div>
+      <div class="objecion-respuesta">Sí. Pagas el equivalente a 10 meses y usas los 12.</div>
+    </div>
+    <div class="objecion-item">
+      <div class="objecion-pregunta">¿Hay algo que se cobre aparte?</div>
+      <div class="objecion-respuesta">No, nunca. El precio incluye todo lo que RubyPOS hace.</div>
+    </div>
+    <div class="objecion-item">
+      <div class="objecion-pregunta">¿Puedo cambiar de mensual a anual después?</div>
+      <div class="objecion-respuesta">Sí. El cambio se refleja en tu próximo cobro.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 6. CIERRE ==================== -->
+<div class="cierre-final">
+  <h2 class="cierre-titulo">Empieza hoy. Vende hoy.</h2>
+  <p class="cierre-sub">30 días gratis. Te ayudamos a cargar tu menú el primer día.</p>
+  <a href="https://app.rubypos.com.co" class="btn-primario">Probar gratis</a>
+  <div class="cierre-nota">No se te cobra hasta después de la prueba.</div>
+</div>
+
+<div class="footer-seccion">
+  <div class="footer">
+    <a href="index.html" class="footer-marca">
+      <span class="anillo"></span>
+      <span>RubyPOS</span>
+    </a>
+    <div class="footer-links">
+      <a href="funciones.html">Funciones</a>
+      <a href="terminos.html">Términos de servicio</a>
+      <a href="terminos.html#privacidad">Privacidad</a>
+    </div>
+    <div class="footer-legal">RubyPOS S.A.S. · Colombia</div>
+  </div>
+</div>
+
+<script>
+const PLANES = {
+  mensual: { cifra: "$21.900", periodo: "/ mes", ahorro: null },
+  anual: { cifra: "$219.000", periodo: "/ año", ahorro: "Equivale a 10 meses: ahorras 2 meses al año." },
+};
+
+function elegirPlan(tipo) {
+  document.querySelectorAll(".toggle-plan button").forEach((b) => {
+    b.classList.toggle("activo", b.dataset.plan === tipo);
+  });
+  const datos = PLANES[tipo];
+  document.getElementById("precio-cifra").textContent = datos.cifra;
+  document.getElementById("precio-periodo").textContent = datos.periodo;
+  const nota = document.getElementById("precio-ahorro");
+  if (datos.ahorro) {
+    nota.textContent = datos.ahorro;
+    nota.hidden = false;
+  } else {
+    nota.hidden = true;
+  }
+}
+
+document.querySelectorAll(".toggle-plan button").forEach((btn) => {
+  btn.addEventListener("click", () => elegirPlan(btn.dataset.plan));
+});
+elegirPlan("mensual");
+</script>
+
+</body>
+</html>

@@ -295,22 +295,6 @@
   .objecion-pregunta { font-family: 'Sora', sans-serif; font-size: 19px; font-weight: 600; color: #1c2620; margin-bottom: 10px; }
   .objecion-respuesta { font-size: 16px; font-weight: 400; line-height: 1.6; max-width: 64ch; color: #4c5c53; }
 
-  /* ---- Sección: Planes ---- */
-  .planes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 24px; max-width: 760px; margin: 0 auto; }
-  .plan-card { background: #fff; border: 1px solid #eee8db; border-radius: 20px; padding: 34px 30px; position: relative; }
-  .plan-card.destacado { border: 2px solid #c9962f; box-shadow: 0 20px 50px rgba(201,150,47,.14); }
-  .plan-badge { position: absolute; top: -13px; right: 24px; background: #c9962f; color: #fff; font-size: 12px; font-weight: 700; padding: 5px 12px; border-radius: 20px; font-family: 'Sora', sans-serif; }
-  .plan-nombre { font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: #8a9a90; margin-bottom: 14px; }
-  .plan-precio-fila { display: flex; align-items: baseline; gap: 6px; margin-bottom: 4px; }
-  .plan-precio { font-family: 'Sora', sans-serif; font-size: 38px; font-weight: 800; color: #1c2620; letter-spacing: -.02em; }
-  .plan-precio-periodo { font-size: 15px; color: #8a9a90; }
-  .plan-nota { font-size: 13.5px; color: #6b7d73; margin-bottom: 22px; }
-  .plan-lista { list-style: none; margin-bottom: 26px; }
-  .plan-lista li { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; color: #2c3a32; padding: 6px 0; }
-  .plan-check { color: #4c9f70; font-weight: 800; flex-shrink: 0; }
-  .plan-cta { display: block; text-align: center; background: #0a2e22; color: #fff; font-family: 'Sora', sans-serif; font-weight: 700; font-size: 15px; padding: 14px; border-radius: 12px; text-decoration: none; }
-  .plan-card.destacado .plan-cta { background: #c9962f; }
-  .planes-nota-final { text-align: center; font-size: 13.5px; color: #8a9a90; margin-top: 28px; }
 
   /* ---- Sección 6: Cierre ---- */
   .cierre2 { text-align: center; }
@@ -408,7 +392,7 @@
     <div class="nav-links">
       <a href="funciones.html">Funciones</a>
       <a href="#como-funciona">Cómo funciona</a>
-      <a href="#planes">Planes</a>
+      <a href="planes.html">Planes</a>
     </div>
     <a href="https://app.rubypos.com.co" class="nav-cta">Probar gratis</a>
   </nav>
@@ -738,41 +722,6 @@
       <div class="objecion-respuesta">30 días gratis. Pedimos tu tarjeta para activar la prueba, pero no se te cobra nada hasta que termine.</div>
     </div>
   </div>
-</div>
-
-<!-- ==================== SECCIÓN: PLANES ==================== -->
-<div class="seccion crema" id="planes">
-  <div class="encabezado-seccion centrado">
-    <div class="eyebrow2">Precios</div>
-    <h2 class="titulo2">Un precio simple. Sin sorpresas.</h2>
-  </div>
-  <div class="planes-grid">
-    <div class="plan-card">
-      <div class="plan-nombre">Mensual</div>
-      <div class="plan-precio-fila"><span class="plan-precio">$49.900</span><span class="plan-precio-periodo">/mes</span></div>
-      <div class="plan-nota">30 días gratis. Cancela cuando quieras.</div>
-      <ul class="plan-lista">
-        <li><span class="plan-check">✓</span>Ventas, mesas y pedidos por QR</li>
-        <li><span class="plan-check">✓</span>Inventario y control de stock</li>
-        <li><span class="plan-check">✓</span>Cierre de caja diario</li>
-        <li><span class="plan-check">✓</span>Empleados con PIN y nómina</li>
-        <li><span class="plan-check">✓</span>Mis Números, tu ganancia real</li>
-      </ul>
-      <a href="https://app.rubypos.com.co" class="plan-cta">Probar gratis</a>
-    </div>
-    <div class="plan-card destacado">
-      <span class="plan-badge">Ahorra 2 meses</span>
-      <div class="plan-nombre">Anual</div>
-      <div class="plan-precio-fila"><span class="plan-precio">$499.999</span><span class="plan-precio-periodo">/año</span></div>
-      <div class="plan-nota">Equivale a $41.667 al mes. También con 30 días gratis.</div>
-      <ul class="plan-lista">
-        <li><span class="plan-check">✓</span>Todo lo del plan mensual</li>
-        <li><span class="plan-check">✓</span>Un solo pago al año</li>
-      </ul>
-      <a href="https://app.rubypos.com.co" class="plan-cta">Probar gratis</a>
-    </div>
-  </div>
-  <p class="planes-nota-final">Se pide tarjeta para activar la prueba, pero no se cobra nada hasta que termine.</p>
 </div>
 
 <!-- ==================== SECCIÓN 6: CIERRE ==================== -->
