@@ -54,7 +54,7 @@
   .precio-card-periodo { font-size: 16px; color: #8a9a90; font-weight: 600; }
   .precio-card-sede { font-size: 14px; color: #8a9a90; margin-top: 4px; margin-bottom: 18px; }
   .precio-card-ahorro { font-size: 13.5px; font-weight: 600; color: #2f9e6e; background: #dcefe3; border-radius: 10px; padding: 10px 14px; margin-bottom: 20px; }
-  .precio-card .btn-primario { display: block; text-align: center; margin-bottom: 14px; }
+  .precio-card .btn-primario { margin-bottom: 14px; }
   .precio-card-nota { font-size: 12.5px; color: #8a9a90; }
 
   .btn-primario {
@@ -85,9 +85,21 @@
   .sedes-card { background: var(--verde); border-radius: 28px; padding: 64px 56px; max-width: 1100px; margin: 0 auto; text-align: center; }
   .sedes-titulo { font-family: 'Sora', sans-serif; font-weight: 800; font-size: clamp(26px, 2.8vw, 36px); color: #fff; letter-spacing: -.02em; margin-bottom: 14px; }
   .sedes-texto { font-size: 16px; color: var(--texto-claro); max-width: 52ch; margin: 0 auto 44px; }
-  .sedes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr)); gap: 20px; max-width: 760px; margin: 0 auto; }
-  .sedes-cifra { font-family: 'Sora', sans-serif; font-size: 26px; font-weight: 800; color: var(--dorado-claro); }
-  .sedes-etiqueta { font-size: 13px; color: var(--texto-claro); margin-top: 6px; }
+  .sedes-calculadora { max-width: 380px; margin: 0 auto; }
+  .sedes-stepper { display: flex; align-items: center; justify-content: center; gap: 26px; margin-bottom: 28px; }
+  .sedes-btn {
+    width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.08);
+    color: #fff; font-size: 20px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    font-family: 'Sora', sans-serif; transition: background .15s ease;
+  }
+  .sedes-btn:hover:not(:disabled) { background: rgba(255,255,255,.18); }
+  .sedes-btn:disabled { opacity: .3; cursor: default; }
+  .sedes-cantidad-fila { display: flex; flex-direction: column; align-items: center; min-width: 84px; }
+  .sedes-cantidad { font-family: 'Sora', sans-serif; font-size: 32px; font-weight: 800; color: #fff; line-height: 1; }
+  .sedes-cantidad-etiqueta { font-size: 13px; color: var(--texto-claro); margin-top: 4px; }
+  .sedes-total-fila { display: flex; align-items: baseline; justify-content: center; gap: 8px; border-top: 1px solid rgba(232,195,117,.18); padding-top: 26px; }
+  .sedes-total-cifra { font-family: 'Sora', sans-serif; font-size: 38px; font-weight: 800; color: var(--dorado-claro); }
+  .sedes-total-periodo { font-size: 15px; color: var(--texto-claro); }
 
   /* ---- 5. Preguntas frecuentes ---- */
   .seccion-faq { padding: 96px 56px; }
@@ -268,11 +280,19 @@
   <div class="sedes-card">
     <h2 class="sedes-titulo">¿Tienes más de una sede?</h2>
     <p class="sedes-texto">El precio escala de forma simple: pagas lo mismo por cada sede que agregues, nunca más que eso.</p>
-    <div class="sedes-grid">
-      <div><div class="sedes-cifra">$21.900</div><div class="sedes-etiqueta">1 sede / mes</div></div>
-      <div><div class="sedes-cifra">$43.800</div><div class="sedes-etiqueta">2 sedes / mes</div></div>
-      <div><div class="sedes-cifra">$65.700</div><div class="sedes-etiqueta">3 sedes / mes</div></div>
-      <div><div class="sedes-cifra">$109.500</div><div class="sedes-etiqueta">5 sedes / mes</div></div>
+    <div class="sedes-calculadora">
+      <div class="sedes-stepper">
+        <button class="sedes-btn" id="sedes-menos" type="button" aria-label="Restar sede">−</button>
+        <div class="sedes-cantidad-fila">
+          <span class="sedes-cantidad" id="sedes-cantidad">1</span>
+          <span class="sedes-cantidad-etiqueta" id="sedes-cantidad-etiqueta">sede</span>
+        </div>
+        <button class="sedes-btn" id="sedes-mas" type="button" aria-label="Sumar sede">+</button>
+      </div>
+      <div class="sedes-total-fila">
+        <span class="sedes-total-cifra" id="sedes-total">$21.900</span>
+        <span class="sedes-total-periodo">/ mes</span>
+      </div>
     </div>
   </div>
 </div>
@@ -356,6 +376,36 @@ document.querySelectorAll(".toggle-plan button").forEach((btn) => {
   btn.addEventListener("click", () => elegirPlan(btn.dataset.plan));
 });
 elegirPlan("mensual");
+
+// Calculadora de sedes: pagas lo mismo por cada sede, así que el total es una simple
+// multiplicación — pero mostrarlo como un contador que el negocio manipula él mismo comunica
+// mejor "esto escala de forma predecible" que una tabla fija con un puñado de ejemplos.
+const PRECIO_SEDE = 21900;
+const SEDES_MIN = 1;
+const SEDES_MAX = 20;
+let sedesCantidad = 1;
+
+function actualizarSedes() {
+  document.getElementById("sedes-cantidad").textContent = sedesCantidad;
+  document.getElementById("sedes-cantidad-etiqueta").textContent = sedesCantidad === 1 ? "sede" : "sedes";
+  document.getElementById("sedes-total").textContent = "$" + (sedesCantidad * PRECIO_SEDE).toLocaleString("es-CO");
+  document.getElementById("sedes-menos").disabled = sedesCantidad <= SEDES_MIN;
+  document.getElementById("sedes-mas").disabled = sedesCantidad >= SEDES_MAX;
+}
+
+document.getElementById("sedes-menos").addEventListener("click", () => {
+  if (sedesCantidad > SEDES_MIN) {
+    sedesCantidad -= 1;
+    actualizarSedes();
+  }
+});
+document.getElementById("sedes-mas").addEventListener("click", () => {
+  if (sedesCantidad < SEDES_MAX) {
+    sedesCantidad += 1;
+    actualizarSedes();
+  }
+});
+actualizarSedes();
 </script>
 
 </body>
