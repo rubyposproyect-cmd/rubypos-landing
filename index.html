@@ -176,7 +176,11 @@
     .btn-secundario { height: auto; padding-left: 0; }
 
     .hero-visual { position: static; transform: none; }
-    .tablet-fondo { position: static; width: 100%; height: auto; margin-top: 36px; pointer-events: auto; transform: none; }
+    .tablet-fondo { position: relative; width: 100%; margin-top: 36px; pointer-events: auto; transform: none; }
+    .tablet-fondo::before {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; height: 48px; z-index: 2;
+      background: linear-gradient(180deg, #0a2e22 0%, rgba(10,46,34,0) 100%); pointer-events: none;
+    }
 
     .tablet-marco-wrap {
       width: 100%; overflow: hidden;
@@ -394,7 +398,7 @@
 
   <div class="hero-texto">
     <div class="chip"><span class="chip-punto"></span><span>Ya se usa todos los días en negocios de Colombia</span></div>
-    <h1>Más tiempo para atender.<br><em>Menos tiempo</em> cuadrando cuentas.</h1>
+    <h1>Simple para tu equipo.<br><em>Claro</em> para ti.</h1>
     <p class="hero-sub">Ventas, inventario, gastos y nómina en un solo lugar. Tu equipo aprende a usarlo el primer día.</p>
 
     <div class="selector">
