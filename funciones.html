@@ -92,12 +92,13 @@
   }
   .btn-secundario { color: var(--blanco); font-weight: 600; font-size: 16px; text-decoration: none; padding: 17px 6px; }
 
-  .footer { border-top: 1px solid rgba(232,195,117,.14); padding-top: 40px; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; }
+  .footer { border-top: 1px solid rgba(232,195,117,.14); padding-top: 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; }
   .footer-marca { display: flex; align-items: center; gap: 9px; }
   .footer-marca .anillo { width: 20px; height: 20px; }
   .footer-marca span { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 16px; color: #fff; }
-  .footer-links { display: flex; gap: 32px; }
+  .footer-links { display: flex; gap: 32px; flex-wrap: wrap; }
   .footer-links a { color: var(--texto-mute); text-decoration: none; font-size: 13.5px; }
+  .footer-legal { color: rgba(255,255,255,.35); font-size: 13px; }
 
   /* ==================== MÓVIL ==================== */
   @media (max-width: 768px) {
@@ -288,7 +289,10 @@
     <div class="footer-links">
       <a href="funciones.html">Funciones</a>
       <a href="index.html#como-funciona">Cómo funciona</a>
+      <a href="terminos.html">Términos de servicio</a>
+      <a href="terminos.html#privacidad">Privacidad</a>
     </div>
+    <div class="footer-legal">RubyPOS S.A.S. · Colombia</div>
   </div>
 </div>
 

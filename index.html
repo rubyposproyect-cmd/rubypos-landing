@@ -297,11 +297,24 @@
   .cierre-sub2 { font-size: 18px; color: #a9c2b6; max-width: 44ch; margin: 0 auto 40px; }
   .cierre-ctas2 { display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; }
 
+  /* ---- Footer: razón social solo va acá, en Términos y en los recibos que emite el sistema —
+     la marca "RubyPOS" sigue siendo lo que ve el cliente en todo el resto del sitio. ---- */
+  .footer { background: #0a2e22; padding: 40px 56px 44px; border-top: 1px solid rgba(232,195,117,.14); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; max-width: 1560px; margin: 0 auto; }
+  .footer-marca { display: flex; align-items: center; gap: 9px; }
+  .footer-marca .anillo { width: 18px; height: 18px; border-width: 3px; }
+  .footer-marca span { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 15px; color: #fff; }
+  .footer-links { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+  .footer-links a { color: #a9c2b6; text-decoration: none; font-size: 13.5px; }
+  .footer-legal { color: #6f8579; font-size: 13px; }
+
   /* Corrige el orden en celular: el texto siempre va antes que la maqueta,
      sin importar la alternancia que se usa en escritorio para variar el ritmo visual. */
   @media (max-width: 900px) {
     .dif-bloque.invertida > *:first-child { order: 1; }
     .dif-bloque.invertida > *:last-child { order: 2; }
+  }
+  @media (max-width: 700px) {
+    .footer { flex-direction: column; align-items: flex-start; padding: 32px 24px 36px; }
   }
 </style>
 </head>
@@ -717,6 +730,20 @@
     </div>
     <a href="#" class="btn-secundario">Hablar con nosotros →</a>
   </div>
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<div class="footer">
+  <a href="index.html" class="footer-marca" style="text-decoration:none;">
+    <span class="anillo"></span>
+    <span>RubyPOS</span>
+  </a>
+  <div class="footer-links">
+    <a href="funciones.html">Funciones</a>
+    <a href="terminos.html">Términos de servicio</a>
+    <a href="terminos.html#privacidad">Privacidad</a>
+  </div>
+  <div class="footer-legal">RubyPOS S.A.S. · Colombia</div>
 </div>
 
 <script>
